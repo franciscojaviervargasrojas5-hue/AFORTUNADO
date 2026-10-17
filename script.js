@@ -25,6 +25,7 @@ function renderPuzzle() {
     
     const row = Math.floor(pieceId / 3);
     const col = pieceId % 3;
+    
     piece.style.backgroundPosition = `-${col * 90}px -${row * 90}px`;
     
     piece.dataset.index = currentIndex;
@@ -62,7 +63,6 @@ function isPuzzleSolved() {
 }
 
 function showUniverseScreen() {
-  // Reproduce la música local (cancion.mp3)
   const music = document.getElementById('bg-music');
   music.play().catch(e => console.log("El navegador requiere interacción para reproducir audio:", e));
 
@@ -73,10 +73,54 @@ function showUniverseScreen() {
 
 // --- MENSAJE OCULTO EN FOTOS ---
 function toggleSecret(card) {
-  document.querySelectorAll('.photo-card').forEach(c => {
-    if (c !== card) c.classList.remove('active-secret');
-  });
-  card.classList.toggle('active-secret');
+  const currentMessageOpen = card.classList.contains('active-secret');
+  document.querySelectorAll('.photo-card').forEach(c => c.classList.remove('active-secret'));
+  if (!currentMessageOpen) {
+    card.classList.add('active-secret');
+  }
+}
+
+// --- CONTROL EXCLUSIVO POR BOTONES DEL CARRUSEL ---
+let currentSlideIndex = 0;
+const totalSlides = 10;
+
+function cambiarSlide(direction) {
+  const cards = document.querySelectorAll('.gallery-card, .photo-card');
+  if (cards.length === 0) return;
+
+  cards.forEach(c => c.classList.remove('active-secret'));
+  cards[currentSlideIndex].classList.remove('active-slide');
+
+  currentSlideIndex += direction;
+
+  if (currentSlideIndex >= totalSlides) {
+    currentSlideIndex = 0;
+  } else if (currentSlideIndex < 0) {
+    currentSlideIndex = totalSlides - 1;
+  }
+
+  cards[currentSlideIndex].classList.add('active-slide');
+  updateCounterDisplay();
+  checkLoveLetterVisibility();
+}
+
+function updateCounterDisplay() {
+  const counterElement = document.getElementById('counter');
+  if (counterElement) {
+    counterElement.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+  }
+}
+
+// Mostrar la carta de amor solo cuando se llega a la última foto (índice 9 = foto 10)
+function checkLoveLetterVisibility() {
+  const loveLetter = document.getElementById('loveLetter');
+  if (!loveLetter) return;
+
+  if (currentSlideIndex === totalSlides - 1) {
+    loveLetter.classList.add('show-letter');
+  } else {
+    loveLetter.classList.remove('show-letter');
+  }
 }
 
 // --- ANIMACIÓN DE LA GALAXIA Y EL CORAZÓN ---
@@ -97,8 +141,6 @@ function initGalaxyAnimation() {
 
   const width = canvas.width;
   const height = canvas.height;
-  const centerX = width / 2;
-  const centerY = height / 2;
 
   particles = [];
   const totalParticles = 1400;
