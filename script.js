@@ -48,27 +48,26 @@ function handlePieceClick(index) {
     renderPuzzle();
 
     if (isPuzzleSolved()) {
-      document.getElementById('puzzle-status').textContent = '¡Excelente, mi amor! Abriendo universo...';
-      document.getElementById('puzzle-status').style.color = '#ffccd5';
+      const statusEl = document.getElementById('puzzle-status');
+      statusEl.textContent = '¡Completado! Toca aquí para entrar a nuestro universo 💖';
+      statusEl.style.color = '#ffccd5';
+      statusEl.style.cursor = 'pointer';
       
-      setTimeout(() => {
-        showUniverseScreen();
-      }, 1200);
+      // Toque directo requerido por los navegadores móviles para activar la música sin bloqueos
+      document.querySelector('.puzzle-container').onclick = () => {
+        const music = document.getElementById('bg-music');
+        music.play().catch(e => console.log("Error al reproducir:", e));
+        
+        document.getElementById('puzzle-screen').classList.remove('active');
+        document.getElementById('universe-screen').classList.add('active');
+        initGalaxyAnimation();
+      };
     }
   }
 }
 
 function isPuzzleSolved() {
   return puzzleState.every((val, idx) => val === winningState[idx]);
-}
-
-function showUniverseScreen() {
-  const music = document.getElementById('bg-music');
-  music.play().catch(e => console.log("El navegador requiere interacción para reproducir audio:", e));
-
-  document.getElementById('puzzle-screen').classList.remove('active');
-  document.getElementById('universe-screen').classList.add('active');
-  initGalaxyAnimation();
 }
 
 // --- MENSAJE OCULTO EN FOTOS ---
