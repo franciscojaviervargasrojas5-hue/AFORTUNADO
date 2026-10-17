@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #0d0614, #1f0b2b, #2b0923, #150826);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- CORAZONES Y DESTELLOS FLOTANTES --- */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-hearts span {
+  position: absolute;
+  color: rgba(255, 130, 169, 0.45);
+  font-size: 1.8rem;
+  animation: floatUp 8s infinite linear;
+  bottom: -10vh;
+  filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.8));
+}
+
+.floating-hearts span:nth-child(1) { left: 8%; animation-duration: 6s; font-size: 1.4rem; }
+.floating-hearts span:nth-child(2) { left: 20%; animation-duration: 10s; font-size: 2.2rem; }
+.floating-hearts span:nth-child(3) { left: 38%; animation-duration: 7s; font-size: 1.2rem; }
+.floating-hearts span:nth-child(4) { left: 55%; animation-duration: 9s; font-size: 2.5rem; }
+.floating-hearts span:nth-child(5) { left: 72%; animation-duration: 8s; font-size: 1.8rem; }
+.floating-hearts span:nth-child(6) { left: 88%; animation-duration: 11s; font-size: 2.1rem; }
+.floating-hearts span:nth-child(7) { left: 30%; animation-duration: 6.5s; font-size: 1.6rem; }
+.floating-hearts span:nth-child(8) { left: 62%; animation-duration: 8.5s; font-size: 2.3rem; }
+.floating-hearts span:nth-child(9) { left: 82%; animation-duration: 7.5s; font-size: 1.3rem; }
+.floating-hearts span:nth-child(10){ left: 95%; animation-duration: 12s; font-size: 1.9rem; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.9; }
+  100% { transform: translateY(-115vh) rotate(360deg) scale(1.2); opacity: 0; }
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  padding: 20px;
+  z-index: 2;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- PANTALLA 1: ROMPECABEZAS (PUZZLE) --- */
+#puzzle-screen {
+  background: transparent;
+}
+
+.puzzle-container {
+  background: rgba(25, 15, 40, 0.9);
+  border: 1px solid rgba(255, 117, 140, 0.4);
+  padding: 30px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  max-width: 380px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+.puzzle-container h2 {
+  font-size: 1.3rem;
+  color: #ffb6c1;
+  margin-bottom: 8px;
+}
+
+.puzzle-instruction {
+  font-size: 0.85rem;
+  color: #ffccd5;
+  margin-bottom: 4px;
+}
+
+.puzzle-subinstruction {
+  font-size: 0.75rem;
+  color: #d8b4fe;
+  margin-bottom: 20px;
+}
+
+.puzzle-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: 270px;
+  height: 270px;
+  margin: 0 auto 20px auto;
+  border: 3px solid #ff758c;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #10081d;
+}
+
+.puzzle-piece {
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400');
+  background-size: 270px 270px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.4);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.puzzle-piece:hover {
+  border-color: #fff;
+}
+
+.puzzle-piece.selected {
+  border-color: #ffcc00;
+  transform: scale(0.95);
+}
+
+.status-message {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+  color: #ffffff;
+  min-height: 2rem;
+}
+
+/* --- PANTALLA 2: UNIVERSO GALÁCTICO Y CARRUSEL DE FOTOS --- */
+#universe-screen {
+  overflow-y: auto;
+  display: block;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.universe-content {
+  position: relative;
+  z-index: 3;
+  max-width: 900px;
+  margin: 30px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.universe-header h1 {
+  font-size: 2.2rem;
+  color: #ffb3c1;
+  margin-bottom: 5px;
+  text-shadow: 0 0 15px rgba(255, 117, 140, 0.8), 0 0 25px rgba(255, 117, 140, 0.4);
+}
+
+.universe-header p {
+  color: #e2c0ff;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 8px rgba(216, 180, 254, 0.5);
+}
+
+.gallery-section h3 {
+  font-size: 1.2rem;
+  color: #ffccd5;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(255, 204, 213, 0.6);
+}
+
+/* --- ESTILO DEL CARRUSEL DESLIZABLE DE FOTOS --- */
+.gallery-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 117, 140, 0.5) rgba(30, 16, 48, 0.3);
+}
+
+.gallery-slider::-webkit-scrollbar {
+  height: 6px;
+}
+.gallery-slider::-webkit-scrollbar-track {
+  background: rgba(30, 16, 48, 0.3);
+  border-radius: 10px;
+}
+.gallery-slider::-webkit-scrollbar-thumb {
+  background: rgba(255, 117, 140, 0.6);
+  border-radius: 10px;
+}
+
+.photo-card {
+  flex: 0 0 210px;
+  scroll-snap-align: center;
+  position: relative;
+  background: rgba(30, 16, 48, 0.75);
+  border: 1px solid rgba(255, 182, 193, 0.35);
+  padding: 12px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 117, 140, 0.25);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s;
+}
+
+.photo-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff758c;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 117, 140, 0.5);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+
+.photo-inner p {
+  font-size: 0.8rem;
+  color: #ffc2d1;
+  font-weight: 600;
+}
+
+.secret-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(22, 10, 36, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  text-align: center;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.photo-card.active-secret .secret-message {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.secret-message p {
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  color: #ffe5ec;
+  line-height: 1.4;
+}
+
+.love-letter {
+  background: rgba(30, 16, 48, 0.7);
+  border: 1px solid rgba(255, 117, 140, 0.4);
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 117, 140, 0.2);
+  text-align: left;
+  backdrop-filter: blur(12px);
+}
+
+.love-letter h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  color: #ff758c;
+  margin-bottom: 12px;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 117, 140, 0.5);
+}
+
+.love-letter p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #f1f5f9;
+  text-align: center;
+}
