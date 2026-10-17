@@ -24,33 +24,31 @@
       <p class="puzzle-instruction">Arma nuestro rompecabezas para descubrir la sorpresa.</p>
       <p class="puzzle-subinstruction">Toca dos piezas consecutivas para intercambiarlas de lugar.</p>
       
-      <div class="puzzle-board" id="puzzleBoard">
-        <!-- Las 9 piezas se generan por JavaScript -->
-      </div>
+      <div class="puzzle-board" id="puzzleBoard"></div>
       
       <p id="puzzle-status" class="status-message">Arma la imagen correctamente...</p>
     </div>
   </div>
 
-  <!-- PANTALLA 2: UNIVERSO PRINCIPAL (FOTOS DESLIZABLES Y MÚSICA) -->
+  <!-- PANTALLA 2: UNIVERSO PRINCIPAL -->
   <div id="universe-screen" class="screen">
     <canvas id="galaxyCanvas"></canvas>
 
     <div class="universe-content">
       <header class="universe-header">
         <h1>Mi Universo Eres Tú ❤️</h1>
-        <p>Desliza las 10 fotografías y tócalas para descubrir un mensaje secreto.</p>
+        <p>Usa los botones para navegar entre nuestras 10 fotografías y tócalas para descubrir un mensaje secreto.</p>
       </header>
 
-      <!-- Galería Carrusel con 10 fotos y textos -->
+      <!-- Galería de Fotos Ampliada -->
       <div class="gallery-section">
         <h3>Nuestros 10 Momentos Especiales</h3>
-        <div class="gallery-slider">
+        <div class="gallery-slider" id="gallerySlider">
           
           <!-- Foto 1 -->
-          <div class="photo-card" onclick="toggleSecret(this)">
+          <div class="photo-card active-slide" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400" alt="Foto 1">
+              <img src="foto1.jpg.jpg" alt="Foto 1">
               <p>1. Nuestro inicio ✨</p>
             </div>
             <div class="secret-message"><p>“Desde el primer día supe que eras tú la persona con la que quería compartir mi vida entera.”</p></div>
@@ -59,7 +57,7 @@
           <!-- Foto 2 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" alt="Foto 2">
+              <img src="foto2.jpg.jpg" alt="Foto 2">
               <p>2. Tu sonrisa ✨</p>
             </div>
             <div class="secret-message"><p>“Tu sonrisa ilumina cada uno de mis días, incluso en los momentos más oscuros.”</p></div>
@@ -68,7 +66,7 @@
           <!-- Foto 3 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400" alt="Foto 3">
+              <img src="foto3.jpg.jpg" alt="Foto 3">
               <p>3. Promesa ✨</p>
             </div>
             <div class="secret-message"><p>“Prometo cuidarte, amarte y hacerte la mujer más feliz del mundo por siempre.”</p></div>
@@ -77,7 +75,7 @@
           <!-- Foto 4 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400" alt="Foto 4">
+              <img src="foto4.jpg.jpg" alt="Foto 4">
               <p>4. Mirada ✨</p>
             </div>
             <div class="secret-message"><p>“Basta con mirar tus ojos para saber que en ti encontré mi hogar definitivo.”</p></div>
@@ -86,7 +84,7 @@
           <!-- Foto 5 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" alt="Foto 5">
+              <img src="foto5.jpg.jpg" alt="Foto 5">
               <p>5. Complicidad ✨</p>
             </div>
             <div class="secret-message"><p>“Nadie me entiende ni me hace reír de la manera en que tú lo haces cada tarde.”</p></div>
@@ -95,7 +93,7 @@
           <!-- Foto 6 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Foto 6">
+              <img src="foto6.jpg.jpg" alt="Foto 6">
               <p>6. Aventuras ✨</p>
             </div>
             <div class="secret-message"><p>“Cada viaje y cada paso a tu lado se convierten en mi recuerdo favorito.”</p></div>
@@ -104,7 +102,7 @@
           <!-- Foto 7 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" alt="Foto 7">
+              <img src="foto7.jpg.jpg" alt="Foto 7">
               <p>7. Paz ✨</p>
             </div>
             <div class="secret-message"><p>“En medio del caos del mundo, tu abrazo siempre es mi refugio de paz.”</p></div>
@@ -113,7 +111,7 @@
           <!-- Foto 8 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" alt="Foto 8">
+              <img src="foto8.jpg.jpg" alt="Foto 8">
               <p>8. Magia ✨</p>
             </div>
             <div class="secret-message"><p>“Haces que la vida ordinaria se sienta completamente mágica y especial.”</p></div>
@@ -122,7 +120,7 @@
           <!-- Foto 9 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" alt="Foto 9">
+              <img src="foto9.jpg.jpg" alt="Foto 9">
               <p>9. Futuro ✨</p>
             </div>
             <div class="secret-message"><p>“Sueño con todos los años que nos quedan por delante construyendo este amor.”</p></div>
@@ -131,7 +129,7 @@
           <!-- Foto 10 -->
           <div class="photo-card" onclick="toggleSecret(this)">
             <div class="photo-inner">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" alt="Foto 10">
+              <img src="foto10.jpg.jpg" alt="Foto 10">
               <p>10. Por siempre ✨</p>
             </div>
             <div class="secret-message"><p>“Te elegiría una y mil veces más en cualquier universo y en cualquier vida. Te amo.”</p></div>
@@ -140,8 +138,15 @@
         </div>
       </div>
 
-      <!-- Carta de Amor -->
-      <div class="love-letter">
+      <!-- Controles del Carrusel -->
+      <div class="carousel-nav">
+        <button onclick="cambiarSlide(-1)">❮ Anterior</button>
+        <span id="counter">1 / 10</span>
+        <button onclick="cambiarSlide(1)">Siguiente ❯</button>
+      </div>
+      
+      <!-- Carta de Amor (Aparece al llegar al final) -->
+      <div class="love-letter" id="loveLetter">
         <h3>Para la dueña de mi corazón</h3>
         <p>
           Amor mío, no hay distancia ni universo lo suficientemente grande como para expresar todo lo que significas para mí. 
@@ -152,7 +157,6 @@
     </div>
   </div>
 
-  <!-- Reproductor de audio local -->
   <audio id="bg-music" loop>
     <source src="cancion.mp3" type="audio/mp3">
   </audio>
